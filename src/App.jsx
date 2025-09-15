@@ -4,13 +4,12 @@ import CodeHoverCards from './components/lightswind/code-hover-cards';
 // import { Github, Code, Dices } from 'lucide-react';
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/ui/card"
+} from "./components/lightswind/card"
 
 function App() {
   const [count, setCount] = useState(0)
