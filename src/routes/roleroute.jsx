@@ -1,18 +1,13 @@
-import { Navigate } from "react-router-dom"
-import { useRole } from "../context/roleContext"
+import { Navigate } from "react-router-dom";
 
-export default function RoleRoute({ children }) {
-  const { role, loading, setRole } = useRole()
+export default function RoleRoute({ children, role, allowedRoles }) {
+  if (!role) {
+    return <div>Loading...</div>;
+  }
 
-  if (loading) return <p>Loading...</p>
+  if (!allowedRoles.includes(role)) {
+    return <Navigate to="/" replace />;
+  }
 
-   if (role === "admin") {
-  return <Navigate to="/admin/dashboard" replace />
-}
-
-  if (role === "student") {
-  return <Navigate to="/dashboard" replace />
-}
-
-  return children
+  return children;
 }
