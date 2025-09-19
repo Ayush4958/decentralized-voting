@@ -21,13 +21,6 @@ export default function Poll() {
   // ✅ Form submit handler
   const onSubmit = async (formData) => {
 
-    // const { data: { user } } = await supabase.auth.getUser()
-    //   if (!user) {
-    //     navigate('/login')
-    //     return
-    //   }
-    //   setUser(user)
-
     setErrorMsg('')
     setSuccessMsg('')
 

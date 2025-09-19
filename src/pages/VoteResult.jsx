@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../api/supabaseClient'
 import ResultSummary from '../AI/resultSummarizer'
+import loader from '../defined_UI/loader'
 
 export default function VoteResults() {
   const [polls, setPolls] = useState([])
