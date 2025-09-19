@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-export default function ResultSummary({ pollId }) {
+export default function ResultSummary({ selectedPollId: pollId })
+ {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -14,7 +15,7 @@ export default function ResultSummary({ pollId }) {
       const res = await fetch("http://localhost:5000/result-summary", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pollId })
+        body: JSON.stringify({ poll_id: pollId })
       });
 
       const data = await res.json();
