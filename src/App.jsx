@@ -2,14 +2,18 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Signup from './pages/signup';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/authContext';
 import Home from './pages/home';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Role from './pages/role'
+import Poll from "./pages/poll"
+import AddCandidate from './pages/AddCandidate';
+import Vote from "./pages/vote"
+import VoteResults from './pages/VoteResult';
 import ProtectedRoute from './routes/protectroute';
+import RoleRoute from './routes/roleroute';
 import { RoleProvider } from './context/roleContext';
 import { supabase } from './api/supabaseClient';
 
@@ -57,22 +61,59 @@ function App() {
     <>
       <AuthProvider>
         <RoleProvider>
+
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/login"
+              element={<Login />} />
 
+            <Route
+              path="/signup"
+              element={<Signup />} />
 
-            <Route path='/dashboard' element={
-              <ProtectedRoute >
-                <Dashboard />
-              </ProtectedRoute>} />
+            <Route
+              path="/dashboard"
+              element={
+                <RoleRoute
+                  role={role}
+                  allowedRoles={["student"]}>
+                  <Dashboard />
+                </RoleRoute>} />
 
+                <Route 
+                path='/vote'
+                element={
+                  <RoleRoute
+                  role={role}
+                  allowedRoles={["student"]}>
+                    <Vote />
+                  </RoleRoute>
+                } />
 
             <Route path='/admin/dashboard' element={
-              <ProtectedRoute >
+              <RoleRoute
+                role={role}
+                allowedRoles={["admin"]} >
                 <AdminDashboard />
-              </ProtectedRoute>
+              </RoleRoute>
             } />
+
+             <Route path='/admin/poll' element={
+              <RoleRoute
+                role={role}
+                allowedRoles={["admin"]} >
+                <Poll />
+              </RoleRoute>
+            } />
+
+            <Route path='/admin/add-candidate' element={
+              <RoleRoute
+              role={role}
+              allowedRoles={["admin"]}>
+              <AddCandidate />
+              </RoleRoute>
+            } />
+
 
             <Route path='/role' element={
               <ProtectedRoute>
@@ -80,9 +121,17 @@ function App() {
               </ProtectedRoute>
             } />
 
-            <Route path="/" element={<ProtectedRoute>
-              <Home />
-            </ProtectedRoute>} />
+            <Route path='/vote-results' element={
+              <ProtectedRoute>
+                <VoteResults />
+              </ProtectedRoute>
+            } />
+
+            <Route
+              path="/"
+              element={<ProtectedRoute>
+                <Home />
+              </ProtectedRoute>} />
 
             {/* Catch-all 404 */}
             <Route path="*" element={<h1>404 - Page Not Found</h1>} />
