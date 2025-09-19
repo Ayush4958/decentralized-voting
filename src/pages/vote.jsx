@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { supabase } from '../api/supabaseClient'
+import ManifestoSummary from '../AI/manifestoSummarize'
+
 
 export default function VotePage() {
   const {
@@ -133,6 +135,15 @@ export default function VotePage() {
             )}
           </>
         )}
+
+        {/* AI Summarizer Part */}
+        {candidates.map((candidate) => (
+  <div key={candidate.id}>
+    <p className="font-bold">{candidate.name}</p>
+    <ManifestoSummary manifesto={candidate.manifesto} />
+  </div>
+))}
+
 
         {/* Submit Button */}
         {!hasVoted && selectedPollId && candidates.length > 0 && (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../api/supabaseClient'
+import ResultSummary from '../AI/resultSummarizer'
 
 export default function VoteResults() {
   const [polls, setPolls] = useState([])
@@ -46,6 +47,7 @@ export default function VoteResults() {
   }, [selectedPollId])
 
   return (
+    <>
     <div className="max-w-xl mx-auto mt-10 bg-white shadow-md p-6 rounded">
       <h2 className="text-2xl font-bold mb-6 text-center">📊 Vote Results</h2>
 
@@ -81,9 +83,13 @@ export default function VoteResults() {
         </div>
       )}
 
+      <ResultSummary selectedPollId={selectedPollId} />
+
       {!loading && selectedPollId && results.length === 0 && (
         <p className="text-gray-500 text-center">No votes yet for this poll.</p>
       )}
     </div>
+
+    </>
   )
 }

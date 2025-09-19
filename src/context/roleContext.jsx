@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../api/supabaseClient'
-import { Navigate } from "react-router-dom"
 
 const RoleContext = createContext()
 
@@ -31,8 +30,6 @@ export const RoleProvider = ({ children }) => {
   }
   fetchRole()
 }, [])
-
-   
 
     return (
     <RoleContext.Provider value={{ role, loading, setRole}}>
