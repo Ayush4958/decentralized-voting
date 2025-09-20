@@ -1,14 +1,14 @@
-// backend/supabaseClient.js
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
+import dotenv from "dotenv";
+dotenv.config();
 
-const supabaseUrl = "https://nphkijivdcjztichcjps.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waGtpaml2ZGNqenRpY2hjanBzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Nzg2OTY2OCwiZXhwIjoyMDczNDQ1NjY4fQ.UrMuS6y0m6wAwJF_HVtkUnPAQsPHM_LT5-UYgImzx2M";
+console.log("Supabase URL:", process.env.SUPABASE_URL); // Debugging line
+console.log("Supabase Anon Key:", process.env.SUPABASE_ANON_KEY); // Debugging line
 
-if (!supabaseUrl || !supabaseKey) {
-  console.error("Missing Supabase environment variables!");
-}
+const SUPABASE_URL = "https://nphkijivdcjztichcjps.supabase.co"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waGtpaml2ZGNqenRpY2hjanBzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4Njk2NjgsImV4cCI6MjA3MzQ0NTY2OH0.TYaucKO_iyj2_a4sXo2BiYl4UBfAKbvehApqPOLuMJg"
 
-console.log("SUPABASE_URL:", supabaseUrl);
-console.log("Supabase Key" , supabaseKey)
-
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);

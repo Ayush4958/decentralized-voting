@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+body {
+  background: linear-gradient(to top, #f1f5f9, #e0f2fe, #cbd5e1);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

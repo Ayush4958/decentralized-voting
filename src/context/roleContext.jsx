@@ -24,7 +24,9 @@ export const RoleProvider = ({ children }) => {
     if (error) {
       console.error(error.message)
     } else {
-       setRole(data.role); 
+      if (data && data.length > 0) {
+  setRole(data[0].role);
+}
     }
     setLoading(false)
   }

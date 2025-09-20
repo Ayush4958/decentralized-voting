@@ -1,7 +1,5 @@
-// backend/server.js
 import dotenv from "dotenv";
-dotenv.config(); // MUST come first
-
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -12,31 +10,25 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY, });
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-// Route for manifesto summarizer
 app.post("/summarize", async (req, res) => {
   try {
     const { manifesto } = req.body;
-
-    const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
+    const response = await client.chat.completions.create(
+      {
+        model: "gpt-4o-mini",
+        messages: [
         { role: "system", content: "You are a student friendly content summarizer." },
         { role: "user", content: `Summarize this manifesto in the small and easy manner:\n\n${manifesto}` }
-      ],
-    });
-    res.json({ summary: response.choices[0].message.content });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to summarize" });
-  }
+      ],});
+    res.json({ summary: response.choices[0].message.content });}
+     catch (error) { 
+      console.error(error); 
+      res.status(500).json({ error: "Failed to summarize" }); 
+    }
 });
 
-// Route for Result Summarizer
 app.post("/result-summary", async (req, res) => {
   try {
     const { poll_id } = req.body;
@@ -65,16 +57,15 @@ app.post("/result-summary", async (req, res) => {
       .join("\n");
 
     // 2. Summarize with OpenAI
-    const response = await openai.chat.completions.create({
+    const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "You are an election results summarizer." },
-        { role: "user", content: `Summarize these poll results:\n${resultText}` }
+        { role: "user", content: `Summarize these poll results:\n${resultText} and also tell who won and congratulate them and also compare their votes` }
       ]
     });
 
     const summary = response.choices[0].message.content;
-
     res.json({ summary });
   } catch (err) {
     console.error(err);

@@ -16,6 +16,7 @@ import ProtectedRoute from './routes/protectroute';
 import RoleRoute from './routes/roleroute';
 import { RoleProvider } from './context/roleContext';
 import { supabase } from './api/supabaseClient';
+import ErrorPage from './defined_UI/error';
 
 
 function App() {
@@ -129,12 +130,10 @@ function App() {
 
             <Route
               path="/"
-              element={<ProtectedRoute>
-                <Home />
-              </ProtectedRoute>} />
+              element={<Home />} />
 
             {/* Catch-all 404 */}
-            <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+            <Route path="*" element={<ErrorPage/>} />
           </Routes>
         </RoleProvider>
       </AuthProvider>
