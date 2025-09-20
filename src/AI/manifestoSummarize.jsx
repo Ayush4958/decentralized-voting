@@ -7,7 +7,7 @@ export default function ManifestoSummary({ manifesto }) {
   const handleSummarize = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/summarize", {
+      const response = await fetch("https://decentralized-voting-1.onrender.com/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ manifesto }),
